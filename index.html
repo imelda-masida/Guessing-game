@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number guessing game</title>
+    <style>
+       
+       html {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+
+      .form input[type="number"] {
+        width: 200px;
+      }
+
+      .lastResult {
+        color: white;
+        padding: 3px;
+      }
+    </style>
+</head>
+
+<body>
+    <h1>Number Guessing Game</h1>
+
+    <p>
+        On a fait une selection un nombre entre 1 et 100. Essayez 
+        de le deviner 
+        en 10 tours ou moins. On vous dira si votre choix etait
+         haut ou bas.
+
+         <div class="form">
+            <label for="guessField">Entrer un nombre: </label>
+            <!--nombre saisie avant/autre teste-->
+            <input type="numero"
+            min="1"
+            max="100"
+            required
+            id="guessField"
+            class="guessField" />
+            <input type="submit" value="Envoyer" class="guessSubmit" />
+         </div>
+
+         <!-- stockage des ref a la saisie de texte du formulaire -->
+         <div class="resultParas">
+            <p class="guesses"></p>
+            <p class="lastResult"></p>
+            <p class="lowOrHi"></p>
+         </div>
+         
+         <script>
+             let randomNumber = Math.floor(Math.random() * 100) + 1;
+
+            const guesses = document.querySelector(".guesses");
+            const lastResult = document.querySelector(".lastResult");
+            const lowOrHi = document.querySelector(".lowOrHi");
+
+            const guessSubmit = document.querySelector(".guessSubmit");
+            const guessField = document.querySelector(".guessField");
+
+            let guessCount = 1;
+            let resetButton;
+                   <!--message appel-->
+                  function checkGuess() {
+                     const userGuess = Number(guessField.value);
+                     if (guessCount === 1) {
+                     guesses.textContent = "Previous guesses:";
+                 }
+                guesses.textContent = `${guesses.textContent} ${userGuess}`;
+
+                 if (userGuess === randomNumber) {
+                    lastResult.textContent = "Congratulations! You got it right!";
+                    lastResult.style.backgroundColor = "green";
+                    lowOrHi.textContent = "";
+                    setGameOver();
+                    } else if (guessCount === 10) {
+                    lastResult.textContent = "!!!GAME OVER!!!";
+                    lowOrHi.textContent = "";
+                    setGameOver();
+                    } else {
+                    lastResult.textContent = "Wrong!";
+                    lastResult.style.backgroundColor = "red";
+                    if (userGuess < randomNumber) {
+                    lowOrHi.textContent = "Last guess was too low!";
+                    } else if (userGuess > randomNumber) {
+                   lowOrHi.textContent = "Last guess was too high!";
+                 }
+            }
+
+                 guessCount++;
+                 guessField.value = "";
+                 guessField.focus();
+            }
+           
+         </script>
+    </p>
+</body>
+</html>
