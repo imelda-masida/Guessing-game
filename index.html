@@ -67,7 +67,19 @@
 
             let guessCount = 1;
             let resetButton;
-            
+
+            function setGameOver() {
+              /**desactivation des champs de saisie*/
+                guessField.disabled = true;
+                guessSubmit.disabled = true;
+                /**generation du bouton pour un autre nouveau jeu*/
+                resetButton = document.createElement("button");
+                resetButton.textContent = "Start new game";
+                document.body.append(resetButton);
+                /**ecouteur d'evenement pour le bouton de reset/ definition auditeur et appelle de resetGame()*/
+               resetButton.addEventListener("click", resetGame);
+               }
+
             guessSubmit.addEventListener("click", checkGuess);
                    <!--message appel-->
                   function checkGuess() {
@@ -106,6 +118,8 @@
                  guessCount++;
                  guessField.value = "";
                  guessField.focus();
+
+                 setGameOver();
             }
            
          </script>
